@@ -1,50 +1,68 @@
-
 import streamlit as st
 import pandas as pd
-import numpy as np
 
-# Page config
-st.set_page_config(page_title="Interactive Resume", layout="centered")
+# 页面设置
+st.set_page_config(page_title="Libei (Ivy) Pan - Interactive Resume", layout="wide")
 
-# --- HEADER SECTION ---
-st.title("Ivy Pan")
-st.subheader("Data Analyst | MMA Student")
-st.write("Passionate about building intelligent systems and clean code.")
+# --- 侧边栏：交互组件 1 (Selectbox) ---
+st.sidebar.header("Navigation")
+page = st.sidebar.selectbox("Choose a section:", ["Professional Summary", "Experience & Projects", "Skills Analysis"])
 
-# --- WIDGET 1: Contact Info Checkbox ---
-if st.checkbox("Show Contact Information"):
-    st.write("📧 Ivyy.pan@rotman.utoronto.ca")
-    st.write("🔗 [LinkedIn](https://www.linkedin.com/in/ivy-pan-7649b92a9/)")
+# --- 头部个人信息 ---
+st.title("🚀 Libei (Ivy) Pan")
+st.write("📍 Toronto, ON | 📧 ivyy.pan@rotman.utoronto.ca")
+st.write("Master of Management Analytics Candidate @ Rotman School of Management")
+
+# --- 页面内容切换 ---
+if page == "Professional Summary":
+    st.header("Professional Summary")
+    st.write("""
+    Aspiring Product Analyst with hands-on experience in data analysis and financial modeling. 
+    Proven track record in improving operational efficiency and forecasting accuracy.
+    """)
+    
+    # 交互组件 2: Checkbox 显示联系方式
+    if st.checkbox("Show Phone Number & LinkedIn"):
+        st.write("📞 (437) 361-9202")
+        st.write("🔗 [LinkedIn Profile](https://linkedin.com)")
+
+elif page == "Experience & Projects":
+    st.header("Work History & Education")
+    
+    # 数据准备
+    exp_data = {
+        "Company/School": ["IG Wealth Management", "PetroChina Canada", "Sinopec", "Rotman (UofT)"],
+        "Role": ["Data Analyst Intern", "Finance & Accounting Analyst", "Accounting Summer Analyst", "MMA Candidate"],
+        "Focus": ["Client Data & Investment Trends", "GST/HST & Financial Trends", "Migration of Records", "Management Analytics"]
+    }
+    df = pd.DataFrame(exp_data)
+    
+    # 展示表格 (Requirement: Display at least one table)
+    st.table(df)
+    
+    st.subheader("Key Project: Alzheimer's Early Detection")
+    st.write("Built predictive models using XGBoost and Random Forest to improve classification accuracy.")
+
+elif page == "Skills Analysis":
+    st.header("Technical Proficiency")
+    
+    # 交互组件 3: Slider 模拟技能熟练度过滤
+    min_level = st.slider("Filter skills by proficiency level (1-100):", 0, 100, 70)
+    
+    # 技能数据
+    skills = {
+        "Python": 90,
+        "R": 85,
+        "SQL/SAP": 80,
+        "Tableau": 75,
+        "Financial Modeling": 85
+    }
+    
+    skill_df = pd.DataFrame(list(skills.items()), columns=["Skill", "Level"])
+    filtered_skills = skill_df[skill_df["Level"] >= min_level]
+    
+    # 展示图表 (Requirement: Display at least one chart)
+    st.bar_chart(filtered_skills.set_index("Skill"))
 
 st.divider()
-
-# --- WIDGET 2: Experience Filter (Slider) ---
-st.header("Work History")
-years_filter = st.slider("Filter by minimum years of experience:", 0, 10, 1)
-
-# --- TABLE: Work Experience ---
-experience_data = {
-    "Company": ["Tech Corp", "Data Solutions", "Startup Inc"],
-    "Role": ["Senior Dev", "Data Analyst", "Junior Dev"],
-    "Years": [5, 3, 2],
-    "Tech Stack": ["Python, AWS", "SQL, Tableau", "JavaScript"]
-}
-df_exp = pd.DataFrame(experience_data)
-filtered_df = df_exp[df_exp["Years"] >= years_filter]
-
-st.table(filtered_df)
-
-# --- WIDGET 3: Skill Focus (Selectbox) ---
-st.header("Skill Proficiency")
-skill_category = st.selectbox("Select a focus area:", ["Technical Skills", "Soft Skills"])
-
-# --- CHART: Skill Levels ---
-if skill_category == "Technical Skills":
-    skills = {"Python": 90, "Machine Learning": 85, "SQL": 80, "Docker": 70}
-else:
-    skills = {"Communication": 95, "Leadership": 80, "Problem Solving": 90, "Teamwork": 85}
-
-skill_df = pd.DataFrame(list(skills.items()), columns=["Skill", "Level"])
-st.bar_chart(skill_df.set_index("Skill"))
-
-st.info("Built with ❤️ using Streamlit")
+st.caption("Built with Streamlit | © 2026 Libei Pan")
