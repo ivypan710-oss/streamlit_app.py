@@ -7,15 +7,14 @@ import numpy as np
 st.set_page_config(page_title="Interactive Resume", layout="centered")
 
 # --- HEADER SECTION ---
-st.title("🚀 Your Name")
-st.subheader("Data Scientist | Python Developer")
+st.title("Ivy Pan")
+st.subheader("Data Analyst | MMA Student")
 st.write("Passionate about building intelligent systems and clean code.")
 
 # --- WIDGET 1: Contact Info Checkbox ---
 if st.checkbox("Show Contact Information"):
-    st.write("📧 email@example.com")
-    st.write("🔗 [LinkedIn](https://linkedin.com)")
-    st.write("💻 [GitHub](https://github.com)")
+    st.write("📧 Ivyy.pan@rotman.utoronto.ca")
+    st.write("🔗 [LinkedIn](https://www.linkedin.com/in/ivy-pan-7649b92a9/)")
 
 st.divider()
 
