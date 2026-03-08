@@ -52,9 +52,9 @@ elif page == "Skills Analysis":
     # 技能数据
     skills = {
         "Python": 90,
-        "R": 85,
-        "SQL/SAP": 80,
-        "Tableau": 75,
+        "R": 95,
+        "SQL/SAP": 85,
+        "Tableau": 90,
         "Financial Modeling": 85
     }
     
